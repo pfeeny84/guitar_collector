@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponse
 from .models import Guitar
@@ -36,3 +36,15 @@ def guitars_detail(request, guitar_id):
         'guitar': guitar, 'maintenance_form': maintenance_form
     
     })
+
+def add_maintenance(request, guitar_id):
+  # create a ModelForm instance using the data in request.POST
+  form = MaintenanceForm(request.POST)
+  # validate the form
+  if form.is_valid():
+    # don't save the form to the db until it
+    # has the cat_id assigned
+    new_maintenance = form.save(commit=False)
+    new_maintenance.guitar_id = guitar_id
+    new_maintenance.save()
+  return redirect('detail', guitar_id=guitar_id)
