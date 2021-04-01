@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 # Create your models here.
 WORK = (
@@ -9,6 +10,17 @@ WORK = (
     ('F', 'Fret Level & Polish'),
     ('A', 'Full Setup'),
 )
+
+class Strap(models.Model):
+    brand = models.CharField(max_length=50)
+    color = models.CharField(max_length=20)
+    material = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.brand
+
+    def get_absolute_url(self):
+        return reverse('straps_detail', kwargs={'pk': self.id})
 
 class Guitar(models.Model):
     brand = models.CharField(max_length=100)
