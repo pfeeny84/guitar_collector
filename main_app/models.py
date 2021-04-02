@@ -27,6 +27,7 @@ class Guitar(models.Model):
     model = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     year = models.IntegerField()
+    straps = models.ManyToManyField(Strap)
 
 
     def __str__(self):

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Strap List</h1>
+
+{% for strap in strap_list %}
+  <a href="{% url 'straps_detail' strap.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ strap.brand }}</span>
+            <p>Color: {{ strap.color }}</p>
+            <p>Material: {{ strap.material }}</p>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}

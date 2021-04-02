@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Strap Details</h1>
+
+<div class="row">
+  <div class="col s6 col-offset-3">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ strap.brand }}</span>
+        <p>Color: {{ strap.color }}</p>
+        <p>Material: {{ strap.material }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'straps_update' strap.id %}">Edit</a>
+        <a href="{% url 'straps_delete' strap.id %}">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
