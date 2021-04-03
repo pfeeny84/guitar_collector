@@ -2,10 +2,34 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.http import HttpResponse
-from .models import Guitar, Strap
 from .forms import MaintenanceForm
+import uuid
+import boto3
+from .models import Guitar, Strap, Photo
+
+S3_BASE_URL = 'https://s3.us-west-1.amazonaws.com/'
+BUCKET = 'guitarcollectorbucket'
 
 # Create your views here.
+
+def add_photo(request, guitar_id):
+   
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+       
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+   
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+       
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            
+            Photo.objects.create(url=url, guitar_id=guitar_id)
+        except:
+            print('An error occurred uploading file to S3')
+    return redirect('detail', guitar_id=guitar_id)
+
 class GuitarCreate(CreateView):
     model = Guitar
     fields = ['brand', 'model', 'description', 'year']
