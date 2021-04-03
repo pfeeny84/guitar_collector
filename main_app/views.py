@@ -32,9 +32,11 @@ def guitars_index(request):
 
 def guitars_detail(request, guitar_id):
     guitar = Guitar.objects.get(id=guitar_id)
+    straps_guitar_doesnt_have = Strap.objects.exclude(id__in = guitar.straps.all().values_list('id'))
     maintenance_form = MaintenanceForm()
     return render(request, 'guitars/detail.html', { 
-        'guitar': guitar, 'maintenance_form': maintenance_form
+        'guitar': guitar, 'maintenance_form': maintenance_form,
+        'straps': straps_guitar_doesnt_have
     
     })
 
