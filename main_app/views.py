@@ -8,7 +8,7 @@ from .forms import MaintenanceForm
 # Create your views here.
 class GuitarCreate(CreateView):
     model = Guitar
-    fields = '__all__'
+    fields = ['brand', 'model', 'description', 'year']
 
 class GuitarUpdate(UpdateView):
   model = Guitar
@@ -50,6 +50,10 @@ def add_maintenance(request, guitar_id):
     new_maintenance = form.save(commit=False)
     new_maintenance.guitar_id = guitar_id
     new_maintenance.save()
+  return redirect('detail', guitar_id=guitar_id)
+
+def assoc_strap(request, guitar_id, strap_id):
+  Guitar.objects.get(id=guitar_id).straps.add(strap_id)
   return redirect('detail', guitar_id=guitar_id)
 
 class StrapList(ListView):

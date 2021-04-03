@@ -1,3 +1,26 @@
+html { 
+  background: rgba(236, 166, 166, 0.477)
+}
+
+img {
+  border-radius: 10px;
+  border: 3px solid black;
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  padding: 10px 20px;
+}
+
+#home-title {
+  text-align: center;
+  margin-bottom: 5px auto;
+  margin-top: 5px auto;
+  font-style: oblique;
+  font-weight: bolder;
+  
+}
+
 body {
     display: flex;
     min-height: 100vh;

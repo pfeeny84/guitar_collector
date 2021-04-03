@@ -77,7 +77,7 @@
           </span>
         </div>
         <div class="card-action">
-          <form action="" method="post">
+          <form action="{% url 'assoc_strap' guitar.id strap.id %}" method="post">
             {% csrf_token %}
             <button type="submit" class="btn">Add</button>
           </form>
